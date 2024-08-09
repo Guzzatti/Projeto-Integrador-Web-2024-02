@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sistema de Feiras de Comércio Justo
 
-## Getting Started
+Bem-vindo ao projeto de **Sistema de Feiras de Comércio Justo**, uma plataforma web desenvolvida para conectar produtores rurais locais com consumidores. Este projeto foi desenvolvido como parte das atividades acadêmicas do curso.
 
-First, run the development server:
+## Equipe
 
-```bash
+- Gabriel Guzzatti
+- Gabriel Milano
+- Paulo Francisconi
+- Matheus Leal
+
+## Professor
+
+- Ramon Venson
+
+## Descrição do Projeto
+
+O Sistema de Feiras de Comércio Justo tem como objetivo facilitar a conexão entre produtores rurais e consumidores em Criciúma, oferecendo uma plataforma onde os usuários podem:
+
+- **Visualizar Feiras**: Informações sobre feiras de comércio justo, incluindo datas, locais e participantes.
+- **Cadastrar Feirantes**: Feirantes podem se cadastrar, adicionar informações sobre seus produtos, fotos e as feiras nas quais participarão.
+- **Acompanhar Feiras e Produtos**: Consumidores podem acompanhar as feiras, visualizar os feirantes e os produtos disponíveis.
+
+## Funcionalidades
+
+1. **Página Inicial**: Exibição das próximas feiras com datas, locais e breve descrição.
+2. **Página das Feiras**: Calendário das feiras, detalhes, e lista de feirantes participantes e produtos disponíveis.
+3. **Área do Feirante**: Cadastro, gerenciamento de feiras e produtos, e upload de fotos do stand.
+4. **Área do Consumidor**: Alertas sobre feiras, detalhes sobre feirantes e produtos.
+5. **Sistema de Administração**: Gerenciamento de feiras, feirantes, e relatórios estatísticos.
+
+## Tecnologias Utilizadas
+
+- **Front-end**: 
+  - React / Next.js
+  - Tailwind CSS
+
+- **Back-end**: 
+  - Spring Boot
+
+- **Banco de Dados**: 
+  - PostgreSQL / MySQL
+
+- **Autenticação**: 
+  - Spring Security
+
+- **Notificações**: 
+  - Firebase Cloud Messaging (opcional)
+
+- **Armazenamento de Imagens**: 
+  - AWS S3
+
+## Estrutura do Projeto
+
+### Front-end
+
+1. **Configuração do Projeto**: 
+   - Criado usando `create-next-app` para iniciar com Next.js.
+
+2. **Componentes**: 
+   - Página Inicial
+   - Página das Feiras
+   - Perfil do Feirante
+   - Dashboard do Feirante
+
+3. **Estilização**: 
+   - Utiliza Tailwind CSS para estilização.
+
+### Back-end
+
+1. **Configuração do Projeto**: 
+   - Configurado usando Spring Initializr.
+
+2. **Entidades JPA**: 
+   - Definidas para Feiras, Feirantes, Produtos e Usuários.
+
+3. **Controladores REST**: 
+   - Endpoints para gerenciamento de feiras, feirantes e produtos.
+
+4. **Segurança**: 
+   - Configuração de autenticação com Spring Security.
+
+5. **Banco de Dados**: 
+   - Configuração para armazenamento de dados.
+
+## Instalação e Execução
+
+### Front-end
+
+Clone o repositório:
+   ```bash
+   git clone <url-do-repositorio>
+   cd <nome-do-repositorio>
+
+Instale as dependências:
+npm install
+
+Inicie o servidor de desenvolvimento:
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun run dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse a aplicação em http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
