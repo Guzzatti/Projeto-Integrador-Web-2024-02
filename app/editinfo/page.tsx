@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { auth } from '../../firebaseConfig'; // Ajuste o caminho se necessário
 import { useRouter } from 'next/navigation';
-import { getFeira, updateFeira } from '../services/feiraService'; // Atualize o caminho se necessário
+import { getFeira, updateFeira } from '../services/feiraService'; // Ajuste o caminho se necessário
 
 export default function EditInfo() {
   const [user, setUser] = useState<any>(null);
@@ -17,11 +17,11 @@ export default function EditInfo() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const user = auth.currentUser;
-        console.log('Usuário atual:', user); // Adicione este log
-        if (user) {
-          setUser(user);
-          const data = await getFeira(user.uid);
+        const currentUser = auth.currentUser;
+        console.log('Usuário atual:', currentUser); // Adicione este log
+        if (currentUser) {
+          setUser(currentUser);
+          const data = await getFeira(currentUser.uid);
           console.log('Dados da feira:', data); // Adicione este log
           if (data) {
             setName(data.name || '');
