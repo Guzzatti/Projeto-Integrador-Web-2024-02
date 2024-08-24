@@ -1,10 +1,13 @@
 // app/page.tsx
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import BannerCarousel from './components/BannerCarousel'; 
-import FeiraList from './components/FeiraList'; // Adicionando a importação do FeiraList
+import FeiraList from './components/FeiraList'; 
 import ReviewCard from './components/ReviewCard';
 import { feiras } from './data/feiras';
 
-// Exemplo de dados para reviews
 const reviews = [
   {
     id: '1',
@@ -27,6 +30,12 @@ const reviews = [
 ];
 
 export default function Home() {
+  const [feirasData, setFeirasData] = useState(feiras);
+
+  useEffect(() => {
+    // Fetch feiras data if needed
+  }, []);
+
   return (
     <div className="container mx-auto px-4 py-8">
       <header className="text-center mb-8">
@@ -48,7 +57,7 @@ export default function Home() {
       {/* Seção das Feiras */}
       <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Próximas Feiras</h2>
-        <FeiraList feiras={feiras} />
+        <FeiraList feiras={feirasData} />
       </section>
 
       {/* Seção de Reviews */}
@@ -63,6 +72,20 @@ export default function Home() {
               comment={review.comment}
             />
           ))}
+        </div>
+      </section>
+
+      {/* Seção de Login/Registro */}
+      <section className="text-center mt-8">
+        <h2 className="text-2xl font-semibold mb-4">Acesse sua conta</h2>
+        <div className="space-y-4">
+          <Link href="/login" className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+            Login
+          </Link>
+          <br></br>
+          <Link href="/register" className="inline-block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+            Registrar-se
+          </Link>
         </div>
       </section>
     </div>
