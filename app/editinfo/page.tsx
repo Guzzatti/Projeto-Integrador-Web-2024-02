@@ -1,47 +1,47 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { auth } from '../../firebaseConfig'; // Ajuste o caminho se necessário
-import { useRouter } from 'next/navigation';
-import { getFeira, updateFeira } from '../services/feiraService'; // Ajuste o caminho se necessário
+import { useState, useEffect } from "react";
+import { auth } from "../../firebaseConfig";
+import { useRouter } from "next/navigation";
+import { getFeira, updateFeira } from "../services/feiraService";
 
 export default function EditInfo() {
   const [user, setUser] = useState<any>(null);
-  const [name, setName] = useState('');
-  const [date, setDate] = useState('');
-  const [vendors, setVendors] = useState('');
-  const [info, setInfo] = useState('');
+  const [name, setName] = useState("");
+  const [date, setDate] = useState("");
+  const [vendors, setVendors] = useState("");
+  const [info, setInfo] = useState("");
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const currentUser = auth.currentUser;
-        console.log('Usuário atual:', currentUser); // Adicione este log
-        if (currentUser) {
-          setUser(currentUser);
-          const data = await getFeira(currentUser.uid);
-          console.log('Dados da feira:', data); // Adicione este log
-          if (data) {
-            setName(data.name || '');
-            setDate(data.date || '');
-            setVendors(data.vendors || '');
-            setInfo(data.info || '');
-          } else {
-            router.push('/login'); // Redireciona se não houver dados da feira
-          }
-        } else {
-          router.push('/login'); // Redireciona se não estiver autenticado
-        }
-      } catch (error) {
-        console.error('Erro ao buscar dados da feira:', error);
-      } finally {
-        setLoading(false);
+  const fetchData = async () => {
+    try {
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        router.push("/login");
+        return;
       }
-    };
+      setUser(currentUser);
+      getFeira(currentUser.uid)
 
-    fetchData();
+    } catch (error) {
+      console.error("Erro ao buscar dados da feira:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (!user) {
+        router.push("/login");
+        return;
+      }
+      setUser(user);
+      fetchData();
+    });
+
+    return () => unsubscribe();
   }, [router]);
 
   const handleUpdate = async (e: React.FormEvent) => {
@@ -49,11 +49,11 @@ export default function EditInfo() {
     if (user) {
       try {
         await updateFeira(user.uid, { name, date, vendors, info });
-        alert('Informações atualizadas com sucesso!');
-        router.push('/'); // Redirecionar para a página inicial ou outra página desejada
+        alert("Informações atualizadas com sucesso!");
+        router.push("/"); // Redirecionar para a página inicial ou outra página desejada
       } catch (error) {
-        console.error('Erro ao atualizar informações:', error);
-        alert('Erro ao atualizar informações.');
+        console.error("Erro ao atualizar informações:", error);
+        alert("Erro ao atualizar informações.");
       }
     }
   };
@@ -61,13 +61,17 @@ export default function EditInfo() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md border border-gray-200">
-        <h1 className="text-3xl font-bold mb-4 text-center text-blue-600">Editar Informações da Feira</h1>
+        <h1 className="text-3xl font-bold mb-4 text-center text-blue-600">
+          Editar Informações da Feira
+        </h1>
         {loading ? (
           <p>Loading...</p>
         ) : (
           <form onSubmit={handleUpdate}>
             <div className="mb-4">
-              <label htmlFor="name" className="block text-gray-700">Nome da Feira</label>
+              <label htmlFor="name" className="block text-gray-700">
+                Nome da Feira
+              </label>
               <input
                 id="name"
                 type="text"
@@ -78,7 +82,9 @@ export default function EditInfo() {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="date" className="block text-gray-700">Data das Próximas Feiras</label>
+              <label htmlFor="date" className="block text-gray-700">
+                Data das Próximas Feiras
+              </label>
               <input
                 id="date"
                 type="text"
@@ -89,7 +95,9 @@ export default function EditInfo() {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="vendors" className="block text-gray-700">Feirantes Participantes</label>
+              <label htmlFor="vendors" className="block text-gray-700">
+                Feirantes Participantes
+              </label>
               <input
                 id="vendors"
                 type="text"
@@ -100,7 +108,9 @@ export default function EditInfo() {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="info" className="block text-gray-700">Informações Sobre a Feira</label>
+              <label htmlFor="info" className="block text-gray-700">
+                Informações Sobre a Feira
+              </label>
               <textarea
                 id="info"
                 value={info}
@@ -112,10 +122,12 @@ export default function EditInfo() {
             </div>
             <button
               type="submit"
-              className={`w-full px-4 py-2 rounded text-white ${loading ? 'bg-gray-500' : 'bg-blue-600'} hover:bg-blue-700`}
+              className={`w-full px-4 py-2 rounded text-white ${
+                loading ? "bg-gray-500" : "bg-blue-600"
+              } hover:bg-blue-700`}
               disabled={loading}
             >
-              {loading ? 'Atualizando...' : 'Atualizar Informações'}
+              {loading ? "Atualizando..." : "Atualizar Informações"}
             </button>
           </form>
         )}
