@@ -18,8 +18,10 @@ export default function Login() {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.push('/'); // Redirecionar para a página inicial após login
+      console.log('Login bem-sucedido'); // Adicione este log
+      router.push('/editinfo'); // Redirecionar para a página de edição após login
     } catch (error) {
+      console.error('Erro ao fazer login:', error); // Adicione este log
       setError('Erro ao fazer login. Verifique suas credenciais.');
     } finally {
       setLoading(false);
@@ -35,6 +37,7 @@ export default function Login() {
       await sendPasswordResetEmail(auth, resetEmail);
       alert('Email de recuperação enviado!');
     } catch (error) {
+      console.error('Erro ao enviar email de recuperação:', error);
       setError('Erro ao enviar email de recuperação.');
     }
   };
@@ -42,9 +45,13 @@ export default function Login() {
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
-      router.push('/'); // Redirecionar para a página inicial após login
+      const result = await signInWithPopup(auth, provider);
+      console.log('Login com Google bem-sucedido:', result); // Adicione este log
+      if (result.user) {
+        router.push('/editinfo'); // Redirecionar para a página de edição após login
+      }
     } catch (error) {
+      console.error('Erro ao fazer login com o Google:', error); // Adicione este log
       setError('Erro ao fazer login com o Google.');
     }
   };
