@@ -28,6 +28,7 @@ export default function Register() {
     } finally {
       setLoading(false);
     }
+    
   };
 
   const handleGoogleRegister = async () => {
