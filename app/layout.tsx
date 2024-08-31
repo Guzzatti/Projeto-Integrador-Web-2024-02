@@ -19,7 +19,6 @@ export default function RootLayout({
             <nav>
               <ul className="flex space-x-4">
                 <li><Link href="/">Home</Link></li>
-                <li><Link href="/feirantes/cadastro">Cadastrar Feirante</Link></li>
               </ul>
             </nav>
           </header>

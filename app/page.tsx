@@ -75,7 +75,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Seção de Login/Registro */}
       <section className="text-center mt-8">
         <h2 className="text-2xl font-semibold mb-4">Acesse sua conta</h2>
         <div className="space-y-4">
