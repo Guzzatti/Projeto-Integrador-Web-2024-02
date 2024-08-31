@@ -19,6 +19,7 @@ export default function RootLayout({
             <nav>
               <ul className="flex space-x-4">
                 <li><Link href="/">Home</Link></li>
+                <li><Link href="/feiras">Feiras</Link></li> {/* Novo link adicionado */}
               </ul>
             </nav>
           </header>
