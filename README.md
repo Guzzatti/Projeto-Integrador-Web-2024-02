@@ -4,10 +4,10 @@ Bem-vindo ao projeto de **Sistema de Feiras de Comércio Justo**, uma plataforma
 
 ## Equipe
 
-- Gabriel Guzzatti
-- Gabriel Milano
-- Paulo Francisconi
-- Matheus Leal
+- Gabriel Guzzatti: Frontend
+- Gabriel Milano: UI/UX
+- Paulo Francisconi: Gerenciamento de projeto
+- Matheus Leal: Backend
 
 ## Professor
 
