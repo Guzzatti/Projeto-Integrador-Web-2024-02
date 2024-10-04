@@ -26,20 +26,19 @@ body {
     rgb(var(--background-start-rgb));
 }
 
-/* Adicione regras específicas para inputs e textareas */
 input, textarea {
-  color: rgb(var(--foreground-rgb)); /* Garante que o texto seja visível */
-  background-color: rgb(var(--background-start-rgb)); /* Define o fundo dos campos de entrada */
-  border: 1px solid rgb(var(--foreground-rgb)); /* Adiciona uma borda visível */
-  padding: 0.5rem; /* Adiciona algum padding */
-  border-radius: 0.375rem; /* Adiciona bordas arredondadas */
+  color: rgb(var(--foreground-rgb));
+  background-color: rgb(var(--background-start-rgb)); 
+  border: 1px solid rgb(var(--foreground-rgb));
+  padding: 0.5rem; 
+  border-radius: 0.375rem; 
 }
 
 input:focus, textarea:focus {
-  outline: 2px solid #3b82f6; /* Adiciona uma borda azul clara quando em foco */
-  background-color: rgb(var(--background-start-rgb)); /* Garante que o fundo não mude ao focar */
+  outline: 2px solid #3b82f6;
+  background-color: rgb(var(--background-start-rgb)); 
 }
 
 label {
-  color: rgb(var(--foreground-rgb)); /* Garante que o texto do label seja visível */
+  color: rgb(var(--foreground-rgb)); 
 }

@@ -26,7 +26,7 @@ const FeiraRegister: React.FC = () => {
         email,
       });
 
-      router.push('/'); // Redireciona para a home após registro
+      router.push('/'); 
     } catch (error) {
       setError('Falha no registro. Tente novamente.');
     }

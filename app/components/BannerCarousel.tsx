@@ -22,14 +22,14 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({ banners }) => {
       slidesPerView={1}
       pagination={{ clickable: true }}
       modules={[Pagination]}
-      className="w-full h-auto" // Garantir que o swiper ocupe toda a largura
+      className="w-full h-auto" 
     >
       {banners.map((banner) => (
         <SwiperSlide key={banner.id}>
           <img
             src={banner.imageUrl}
             alt={banner.altText}
-            className="w-full h-[auto] object-cover max-h-[780px]" // Ajustes responsivos
+            className="w-full h-[auto] object-cover max-h-[780px]" 
           />
         </SwiperSlide>
       ))}

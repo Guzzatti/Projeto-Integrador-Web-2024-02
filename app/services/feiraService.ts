@@ -1,11 +1,11 @@
 // app/services/feiraService.ts
-import { db } from "../../firebaseConfig"; // Ajuste o caminho se necessário
+import { db } from "../../firebaseConfig"; 
 import { doc, setDoc, updateDoc, getDoc, onSnapshot } from "firebase/firestore";
 
-// Função para criar uma nova feira
+
 export const createNewFeira = async (uid: string) => {
   try {
-    const docRef = doc(db, "feiras", uid); // 'feiras' é a coleção e uid é o identificador do documento
+    const docRef = doc(db, "feiras", uid); 
     await setDoc(docRef, {
       name: "Nome da Feira",
       date: "Data das Próximas Feiras",
@@ -18,7 +18,6 @@ export const createNewFeira = async (uid: string) => {
   }
 };
 
-// Função para atualizar uma feira existente
 export const updateFeira = async (uid: string, updates: any) => {
   try {
     const docRef = doc(db, "feiras", uid);
@@ -29,7 +28,6 @@ export const updateFeira = async (uid: string, updates: any) => {
   }
 };
 
-// Função para recuperar dados da feira
 export const getFeira = async (uid: string) => {
   try {
     const docRef = doc(db, "feiras", uid);

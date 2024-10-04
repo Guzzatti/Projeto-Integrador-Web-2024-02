@@ -1,6 +1,6 @@
 // services/firestoreService.ts
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../../firebaseConfig'; // Ajuste o caminho conforme necessário
+import { db } from '../../firebaseConfig';
 
 const feirantesCollection = collection(db, 'feirantes');
 const feirasCollection = collection(db, 'feiras');

@@ -14,7 +14,7 @@ const FeiraLogin: React.FC = () => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.push('/'); // Redireciona para a home após login
+      router.push('/'); 
     } catch (error) {
       setError('Falha no login. Verifique suas credenciais.');
     }

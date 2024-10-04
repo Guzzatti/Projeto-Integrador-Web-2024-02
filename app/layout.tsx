@@ -2,7 +2,7 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
 import Link from 'next/link';
-import { AuthProvider } from './hooks/useAuth'; // Import do AuthProvider
+import { AuthProvider } from './hooks/useAuth'; 
 
 const inter = Inter({ subsets: ['latin'] });
 
