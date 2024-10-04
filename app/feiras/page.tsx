@@ -2,14 +2,31 @@
 
 "use client";  // Indica que este é um Client Component
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import FeiraList from '../components/FeiraList';
-import { feiras as feirasData } from '../data/feiras';
+import { fetchFeiras } from '../api';  // Importa a função que busca as feiras da API
 
 export default function Feiras() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredFeiras, setFilteredFeiras] = useState(feirasData);
+  const [feirasData, setFeirasData] = useState([]);  // Estado para armazenar os dados das feiras
+  const [filteredFeiras, setFilteredFeiras] = useState([]);
 
+  useEffect(() => {
+    // Função para buscar as feiras da API
+    const fetchData = async () => {
+      try {
+        const feiras = await fetchFeiras();  // Faz a requisição à API
+        setFeirasData(feiras);  // Atualiza o estado com as feiras recebidas
+        setFilteredFeiras(feiras);  // Inicialmente, todas as feiras são exibidas
+      } catch (error) {
+        console.error("Erro ao buscar as feiras:", error);
+      }
+    };
+
+    fetchData();  // Executa a função ao carregar o componente
+  }, []);
+
+  // Função para lidar com a pesquisa
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const term = event.target.value.toLowerCase();
     setSearchTerm(term);
@@ -18,7 +35,7 @@ export default function Feiras() {
       feira.nome.toLowerCase().includes(term)
     );
 
-    setFilteredFeiras(filtered);
+    setFilteredFeiras(filtered);  // Atualiza as feiras filtradas com base na busca
   };
 
   return (

@@ -3,7 +3,7 @@
 export const feiras = [
   {
     id: '2',
-    nome: 'Feira da Praça Nereu Ramos',
+    nome: 'Feira da Praça Nereu Ramos 01',
     local: 'Praça Nereu Ramos, Criciúma',
     datas: [
       { data: '2024-01-05', horario: '08:00 - 14:00' },
@@ -16,7 +16,7 @@ export const feiras = [
   },
   {
     id: '3',
-    nome: 'Feira Inspirar',
+    nome: 'Feira Inspirar 02',
     locais: [
       {
         local: 'Parque da Prefeitura, Criciúma',
@@ -44,7 +44,7 @@ export const feiras = [
   },
   {
     id: '4',
-    nome: 'Feira Empreender',
+    nome: 'Feira Empreender 03',
     local: 'Parque das Nações, Criciúma',
     datas: [
       { data: '2024-09-15', horario: '08:00 - 14:00' },
@@ -57,7 +57,7 @@ export const feiras = [
   },
   {
     id: '5',
-    nome: 'Feira da Praça do Congresso',
+    nome: 'Feira da Praça do Congresso 04',
     local: 'Praça do Congresso, Criciúma',
     datas: [
       { data: '2024-01-20', horario: '08:00 - 14:00' },
