@@ -2,7 +2,7 @@
 
 export const feiras = [
   {
-    id: 'feira-1',
+    id: '2',
     nome: 'Feira da Praça Nereu Ramos',
     local: 'Praça Nereu Ramos, Criciúma',
     datas: [
@@ -15,7 +15,7 @@ export const feiras = [
     ],
   },
   {
-    id: 'feira-2',
+    id: '3',
     nome: 'Feira Inspirar',
     locais: [
       {
@@ -43,7 +43,7 @@ export const feiras = [
     ],
   },
   {
-    id: 'feira-3',
+    id: '4',
     nome: 'Feira Empreender',
     local: 'Parque das Nações, Criciúma',
     datas: [
@@ -56,7 +56,7 @@ export const feiras = [
     ],
   },
   {
-    id: 'feira-4',
+    id: '5',
     nome: 'Feira da Praça do Congresso',
     local: 'Praça do Congresso, Criciúma',
     datas: [
