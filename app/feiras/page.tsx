@@ -6,13 +6,19 @@ import { useState, useEffect } from 'react';
 import FeiraList from '../components/FeiraList';
 import { fetchFeiras } from '../api';  // Importa a função que busca as feiras da API
 
+// Define a interface para uma feira
+interface Feira {
+  id: string;
+  nome: string;
+  local: string;
+}
+
 export default function Feiras() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [feirasData, setFeirasData] = useState([]);  // Estado para armazenar os dados das feiras
-  const [filteredFeiras, setFilteredFeiras] = useState([]);
+  const [feirasData, setFeirasData] = useState<Feira[]>([]);  // Define o estado como um array de Feira
+  const [filteredFeiras, setFilteredFeiras] = useState<Feira[]>([]);  // Define o estado como um array de Feira
 
   useEffect(() => {
-    // Função para buscar as feiras da API
     const fetchData = async () => {
       try {
         const feiras = await fetchFeiras();  // Faz a requisição à API
@@ -51,7 +57,8 @@ export default function Feiras() {
         className="mb-4 p-2 border border-gray-300 rounded w-full"
       />
       
-      <FeiraList feiras={filteredFeiras} /> {/* Passando feiras filtradas */}
+      {/* Renderiza a lista de feiras filtradas */}
+      <FeiraList feiras={filteredFeiras} />
     </div>
   );
 }
