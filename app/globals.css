@@ -5,18 +5,12 @@
 @import "~slick-carousel/slick/slick-theme.css";
 
 :root {
-  --foreground-rgb: 40, 40, 40; /* Cinza escuro para texto */
-  --background-start-rgb: 240, 240, 240; /* Cinza muito claro para fundo */
-  --background-end-rgb: 255, 255, 255; /* Branco */
+  --foreground-rgb: 40, 40, 40; 
+  --background-start-rgb: 240, 240, 240; 
+  --background-end-rgb: 255, 255, 255; 
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255; /* Branco para texto em modo escuro */
-    --background-start-rgb: 30, 30, 30; /* Preto suave */
-    --background-end-rgb: 50, 50, 50; /* Cinza escuro */
-  }
-}
+
 
 body {
   color: rgb(var(--foreground-rgb));
@@ -29,61 +23,53 @@ body {
 
 a {
   color: rgb(var(--foreground-rgb));
-  transition: color 0.3s; /* Transição suave de cor */
+  transition: color 0.3s; 
 }
 
 a:hover {
-  color: rgb(0, 0, 255); /* Cor para links ao passar o mouse */
+  color: rgb(0, 0, 255); 
 }
 
-/* Estilos de entrada e textarea */
+
 input, textarea {
-  color: rgb(0, 0, 0); /* Texto na cor preta para fundo claro */
-  background-color: rgb(217, 217, 217); /* Fundo branco para campos de entrada */
-  border: 1px solid rgb(200, 200, 200); /* Cinza claro para bordas */
+  color: rgb(0, 0, 0); 
+  background-color: rgb(217, 217, 217); 
+  border: 1px solid rgb(200, 200, 200); 
   padding: 0.5rem; 
   border-radius: 0.375rem; 
 }
 
 input:focus, textarea:focus {
-  outline: 2px solid #6c6c6c; /* Escurecer a borda ao focar */
-  background-color: rgb(249, 249, 249); /* Cinza claro ao focar */
+  outline: 2px solid #6c6c6c; 
+  background-color: rgb(249, 249, 249); 
 }
 
-/* Estilo para texto em fundo escuro */
-@media (prefers-color-scheme: dark) {
-  input, textarea {
-    color: rgb(var(--foreground-rgb)); /* Texto na cor definida para modo escuro */
-  }
-}
+
+
 
 label {
   color: rgb(var(--foreground-rgb)); 
 }
 
-li {
-  @apply hover:underline underline-offset-4;
-}
 
-/* Estilo para as avaliações */
 .review-card {
-  background-color: rgb(245, 245, 245); /* Fundo claro para as avaliações */
-  border: 1px solid rgb(200, 200, 200); /* Bordas claras */
+  background-color: rgb(245, 245, 245); 
+  border: 1px solid rgb(200, 200, 200); 
   padding: 1rem;
   border-radius: 0.375rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para destacar as avaliações */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 .review-card .name {
-  color: rgb(60, 60, 60); /* Cinza escuro para os nomes */
-  font-weight: bold; /* Negrito para destacar os nomes */
+  color: rgb(60, 60, 60); 
+  font-weight: bold; 
 }
 
 .review-card .comment {
-  color: rgb(40, 40, 40); /* Mantém o cinza escuro para os comentários */
+  color: rgb(40, 40, 40); 
 }
 
-/* Estilo adicional para cabeçalhos e outros elementos */
+
 h1, h2, h3, h4, h5, h6 {
   color: rgb(var(--foreground-rgb));
 }

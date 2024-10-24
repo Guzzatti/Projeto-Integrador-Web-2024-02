@@ -2,10 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Slider from 'react-slick';  // Importa o componente de carrossel
+import Slider from 'react-slick'; 
 import BannerCarousel from './components/BannerCarousel';
 import FeiraList from './components/FeiraList';
-import { fetchFeiras } from './api';
+import { fetchFeiras } from './aut/api/user/feiraservice';
+import Header from './components/Header';
+import Footer from './components/Footer';
+
 
 const reviews = [
     {
@@ -52,26 +55,26 @@ export default function Home() {
         fetchData();
     }, []);
 
-    // Configuração do carrossel para exibir vários cards ao mesmo tempo
+    
     const settings = {
         dots: true,
-        infinite: true,  // Faz com que o carrossel seja contínuo
+        infinite: true,  
         speed: 500,
-        slidesToShow: 3,  // Exibe 3 cards de uma vez
-        slidesToScroll: 1,  // Rola um card de cada vez
+        slidesToShow: 3,  
+        slidesToScroll: 1,  
         autoplay: true,
         autoplaySpeed: 3000,
-        arrows: true,  // Mantém as setas para navegação manual
+        arrows: true,  
         responsive: [
             {
-                breakpoint: 1024,  // Para telas menores (ex: tablets)
+                breakpoint: 1024,  
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 1,
                 }
             },
             {
-                breakpoint: 600,  // Para telas muito pequenas (ex: smartphones)
+                breakpoint: 600,  
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
@@ -81,58 +84,62 @@ export default function Home() {
     };
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <header className="text-center mb-8">
-                <h1 className="text-4xl font-bold text-blue-600">Hub das feiras de Criciúma</h1>
-                <p className="mt-4 text-gray-600">Conecte-se com produtores locais e descubra feiras próximas de você!</p>
-            </header>
+        <div>
+            <Header/>
+                <div className="flex flex-col min-h-screen">
+                    <div className="container mx-auto px-4 py-8">
+                        
+                        <header className="text-center mb-8">
+                            <h1 className="text-4xl font-bold text-blue-600">Hub das feiras de Criciúma</h1>
+                            <p className="mt-4 text-gray-600">Conecte-se com produtores locais e descubra feiras próximas de você!</p>
+                        </header>
 
-            {/* Seção do Banner */}
-            <section className="mb-8">
-                <BannerCarousel
-                    banners={[
-                        { id: '1', imageUrl: '/banners/banner1.png', altText: 'Banner 1' },
-                        { id: '2', imageUrl: '/banners/banner2.png', altText: 'Banner 2' },
-                        { id: '3', imageUrl: '/banners/banner3.png', altText: 'Banner 3' }
-                    ]}
-                />
-            </section>
+                       
+                        <section className="mb-8">
+                            <BannerCarousel
+                                banners={[
+                                    { id: '1', imageUrl: '/banners/banner1.png', altText: 'Banner 1' },
+                                    { id: '2', imageUrl: '/banners/banner2.png', altText: 'Banner 2' },
+                                    { id: '3', imageUrl: '/banners/banner3.png', altText: 'Banner 3' }
+                                ]}
+                            />
+                        </section>
 
-            {/* Seção das Feiras */}
-            <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">Próximas Feiras</h2>
-                <FeiraList feiras={feirasData} />
-            </section>
+                       
+                        <section className="mb-8">
+                            <h2 className="text-2xl font-semibold mb-4">Próximas Feiras</h2>
+                            <FeiraList feiras={feirasData} />
+                        </section>
 
-            {/* Seção de Reviews com Carrossel contínuo */}
-            <section className="bg-gray-200 p-6 rounded-lg shadow-md">
-                <h2 className="text-2xl font-semibold mb-4 text-black text-center">O que estão dizendo</h2>
-                
-                {/* Carrossel de Avaliações */}
-                <Slider {...settings}>
-                    {reviews.map((review) => (
-                        <div key={review.id} className="text-center p-4">
-                            <h3 className="text-lg font-semibold text-gray-800">{review.name}</h3>
-                            <p className="text-yellow-500">{"⭐".repeat(review.rating)}</p>
-                            <p className="text-gray-700 italic">"{review.comment}"</p>
-                        </div>
-                    ))}
-                </Slider>
-            </section>
+                        
+                        <section className="bg-gray-200 p-6 rounded-lg shadow-md">
+                            <h2 className="text-2xl font-semibold mb-4 text-black text-center">O que estão dizendo</h2>
+                            
+                            
+                            <Slider {...settings}>
+                                {reviews.map((review) => (
+                                    <div key={review.id} className="text-center p-4">
+                                        <h3 className="text-lg font-semibold text-gray-800">{review.name}</h3>
+                                        <p className="text-yellow-500">{"⭐".repeat(review.rating)}</p>
+                                        <p className="text-gray-700 italic">"{review.comment}"</p>
+                                    </div>
+                                ))}
+                            </Slider>
+                        </section>
 
-            {/* Seção de Login/Registro */}
-            <section className="text-center mt-8">
-                <h2 className="text-2xl font-semibold mb-4">Acesse sua conta</h2>
-                <div className="space-y-4">
-                    <Link href="/login" className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                        Login
-                    </Link>
-                    <br />
-                    <Link href="/register" className="inline-block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
-                        Registrar-se
-                    </Link>
+                       
+                        <section className="text-center mt-8">
+                            <h2 className="text-2xl font-semibold mb-4">Acesse sua conta</h2>
+                            <div className="space-y-4">
+                                <Link href="/public/login" className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                                    Login
+                                </Link>
+                                <br />
+                            </div>
+                        </section>
+                    </div>
                 </div>
-            </section>
-        </div>
+            <Footer/>
+        </div>    
     );
 }

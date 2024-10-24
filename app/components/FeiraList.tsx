@@ -1,4 +1,4 @@
-// components/FeiraList.tsx
+
 
 interface Feira {
   id: string;
