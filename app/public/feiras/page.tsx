@@ -5,6 +5,7 @@
 import { useState, useEffect } from 'react';
 import FeiraList from '../../components/FeiraList';
 import { fetchFeiras } from '../../api/user/api';  
+import Header from '@/app/components/Header';
 
 
 
@@ -46,7 +47,9 @@ export default function Feiras() {
   };
 
   return (
-    <div className="p-8">
+    //className="p-8"
+    <div>
+      <Header/>
       <h1 className="text-2xl font-bold mb-6">Feiras de Comércio Justo</h1>
       
       
