@@ -3,9 +3,8 @@
 "use client";  
 
 import { useState, useEffect } from 'react';
-import FeiraList from '../../../components/FeiraList';
-import { fetchFeiras } from '../../../api/user/api';  
-import Header from '../.././../components/Header';
+import FeiraList from '../../components/FeiraList';
+import { fetchFeiras } from '../../api/user/api';  
 
 
 
@@ -47,23 +46,20 @@ export default function Feiras() {
   };
 
   return (
-    <div>
-      <Header/>
-        <div className="p-8">
-          <h1 className="text-2xl font-bold mb-6">Feiras de Comércio Justo</h1>
-          
-          
-          <input
-            type="text"
-            placeholder="Pesquisar feira..."
-            value={searchTerm}
-            onChange={handleSearch}
-            className="mb-4 p-2 border border-gray-300 rounded w-full"
-          />
-          
-        
-          <FeiraList feiras={filteredFeiras} />
-        </div>
+    <div className="p-8">
+      <h1 className="text-2xl font-bold mb-6">Feiras de Comércio Justo</h1>
+      
+      
+      <input
+        type="text"
+        placeholder="Pesquisar feira..."
+        value={searchTerm}
+        onChange={handleSearch}
+        className="mb-4 p-2 border border-gray-300 rounded w-full"
+      />
+      
+     
+      <FeiraList feiras={filteredFeiras} />
     </div>
   );
 }
