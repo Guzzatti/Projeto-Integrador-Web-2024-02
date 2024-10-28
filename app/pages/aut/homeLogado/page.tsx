@@ -1,6 +1,9 @@
-import Link from 'next/link';
+'use client';
 
-export default function Home() {
+import Link from 'next/link';
+import withAuth from '../../../hoc/withAuth';
+
+function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-grow flex flex-col items-center justify-center bg-gray-100">
@@ -23,3 +26,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default withAuth(Home);

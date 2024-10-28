@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Slider from 'react-slick'; 
 import BannerCarousel from './components/BannerCarousel';
 import FeiraList from './components/FeiraList';
-import { fetchFeiras } from './aut/api/user/feiraservice';
+import { fetchFeiras } from './pages/aut/api/user/feiraservice';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -131,7 +131,7 @@ export default function Home() {
                         <section className="text-center mt-8">
                             <h2 className="text-2xl font-semibold mb-4">Acesse sua conta</h2>
                             <div className="space-y-4">
-                                <Link href="/public/login" className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                                <Link href="/pages/public/login" className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
                                     Login
                                 </Link>
                                 <br />

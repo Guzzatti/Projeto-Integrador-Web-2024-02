@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import ModalAdicionarFeirante from '../components/ModalAdicionarFeirante'; 
 import { fetchFeirantes } from '../api/user/feiranteservice'; 
+import withAuth from '../../../hoc/withAuth';
 
 const FeirantesPage = () => {
   const [feirantesData, setFeirantesData] = useState([]);
@@ -96,4 +97,4 @@ const FeirantesPage = () => {
   );
 };
 
-export default FeirantesPage;
+export default withAuth(FeirantesPage);

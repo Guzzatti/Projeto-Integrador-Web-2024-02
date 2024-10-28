@@ -1,10 +1,14 @@
 'use client';
 
+
 import { useEffect, useState } from 'react'; 
 import { fetchFeiras, } from '../api/user/feiraservice'; 
 import ModalAdicionarFeira from '../components/ModalAdicionarFeira';
+import withAuth from '../../../hoc/withAuth';
 
 const FeirasPage = () => {
+
+
   const [feirasData, setFeirasData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -100,4 +104,4 @@ const FeirasPage = () => {
   
 };
 
-export default FeirasPage;
+export default withAuth(FeirasPage);

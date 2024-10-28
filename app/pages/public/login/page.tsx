@@ -1,7 +1,9 @@
 'use client';
 
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { loginUser } from '../../../hooks/authService';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -13,7 +15,16 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
+    setError('');
+
+    try {
+      await loginUser({ email, password });
+      router.push('/aut/home'); 
+    } catch (error) {
+      setError('Erro ao realizar login. Verifique suas credenciais.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
