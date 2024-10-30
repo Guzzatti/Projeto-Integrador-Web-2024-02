@@ -1,13 +1,12 @@
 'use client';
 
-
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { loginUser } from '../../../hooks/authService';
+import { loginUser } from '../../../hooks/authService';  
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [usuario, setUsuario] = useState('');
+  const [senha, setSenha] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -18,8 +17,8 @@ export default function Login() {
     setError('');
 
     try {
-      await loginUser({ email, password });
-      router.push('/aut/home'); 
+      await loginUser({ usuario, senha });
+      router.push('/pages/aut/homeLogado');  
     } catch (error) {
       setError('Erro ao realizar login. Verifique suas credenciais.');
     } finally {
@@ -33,12 +32,12 @@ export default function Login() {
         <h1 className="text-3xl font-bold mb-4 text-center text-blue-600">Login</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700">Usuário</label>
+            <label htmlFor="user" className="block text-gray-700">Usuário</label>
             <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              id="usuario"
+              type="text"
+              value={usuario}
+              onChange={(e) => setUsuario(e.target.value)}
               className="border p-2 w-full rounded"
               required
             />
@@ -46,10 +45,10 @@ export default function Login() {
           <div className="mb-4">
             <label htmlFor="password" className="block text-gray-700">Senha</label>
             <input
-              id="password"
+              id="senha"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
               className="border p-2 w-full rounded"
               required
             />

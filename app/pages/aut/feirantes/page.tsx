@@ -2,23 +2,35 @@
 
 import { useEffect, useState } from 'react';
 import ModalAdicionarFeirante from '../components/ModalAdicionarFeirante'; 
-import { fetchFeirantes } from '../api/user/feiranteservice'; 
+import { fetchFeirantes, addFeirante } from '../api/user/feiranteservice'; 
 import withAuth from '../../../hoc/withAuth';
 
+interface Feirante {
+  id: number;
+  nomeFeirante: string; 
+  nomeEmpresa: string;
+  cnpj: string;
+  telefone: string; 
+}
+
 const FeirantesPage = () => {
-  const [feirantesData, setFeirantesData] = useState([]);
+  const [feirantesData, setFeirantesData] = useState<Feirante[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const feirantes = await fetchFeirantes();
-      setFeirantesData(feirantes);
+      try {
+        const feirantes = await fetchFeirantes();
+        setFeirantesData(feirantes);
+      } catch (error) {
+        console.error('Erro ao buscar feirantes:', error);
+      }
     };
 
     fetchData();
   }, []);
 
-  const handleAddFeirante = async (feirante: { nomeFeirante: string; nomeEmpresa: string; cnpj: string; telefone: string }) => {
+  const handleAddFeirante = async (feirante: Omit<Feirante, 'id'>) => {
     try {
       const newFeirante = await addFeirante(feirante);
       setFeirantesData((prevFeirantes) => [...prevFeirantes, newFeirante]);
@@ -26,6 +38,23 @@ const FeirantesPage = () => {
       console.error('Erro ao adicionar feirante:', error);
     }
   };
+
+  /*
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteFeirante(id);
+      setFeirantesData((prevFeirantes) => prevFeirantes.filter((feirante) => feirante.id !== id));
+    } catch (error) {
+      console.error('Erro ao excluir feirante:', error);
+    }
+  };
+
+  */
+
+/* const handleEdit = (id: number) => {
+    // Lógica para editar o feirante (ex. abrir modal com dados do feirante selecionado)
+  };
+*/
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 p-5">
@@ -70,13 +99,13 @@ const FeirantesPage = () => {
                   <td className="py-2 px-4 border-b flex justify-center space-x-2">
                     <button
                       className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
-                      onClick={() => handleEdit(feirante.id)}
+                      //onClick={() => handleEdit(feirante.id)}
                     >
                       Editar
                     </button>
                     <button
                       className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                      onClick={() => handleDelete(feirante.id)}
+                      //onClick={() => handleDelete(feirante.id)}
                     >
                       Excluir
                     </button>

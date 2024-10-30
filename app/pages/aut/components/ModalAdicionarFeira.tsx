@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import DatePicker from 'react-datepicker'; 
-import 'react-datepicker/dist/react-datepicker.css'; 
+
 
 interface ModalAdicionarFeiraProps {
     isOpen: boolean;
@@ -59,16 +58,6 @@ const ModalAdicionarFeira: React.FC<ModalAdicionarFeiraProps> = ({ isOpen, onClo
                     />
                 </div>
                 
-                <div className="mb-4">
-                    <label className="block text-gray-700">Data</label>
-                    <DatePicker
-                        selected={data}
-                        onChange={(date: Date) => setData(date)}
-                        dateFormat="dd/MM/yyyy"
-                        className="w-full px-4 py-2 border rounded"
-                        placeholderText="Selecione uma data"
-                    />
-                </div>
                 
                 <div className="mb-4">
                     <label className="block text-gray-700">Descrição</label>
