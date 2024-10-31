@@ -1,12 +1,11 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api';
 
 export const saveToken = (token: string) => {
-  // Armazena o token em um cookie
-  document.cookie = `token=${token}; path=/; secure; samesite=strict;`;
+  document.cookie = `token=${token}; path=/; samesite=strict;`;
 };
 
 export const getToken = () => {
-  // Função para obter o valor do cookie
+  
   const name = 'token=';
   const decodedCookie = decodeURIComponent(document.cookie);
   const cookieArray = decodedCookie.split(';');
@@ -32,10 +31,10 @@ export const loginUser = async (credentials: { usuario: string; senha: string })
       credentials: "include",
     });
 
-    // Handle non-200 responses
+    
     if (!response.ok) {
-      const errorDetails = await response.json(); // Get error details from the response
-      console.error('Erro ao realizar login:', errorDetails); // Log error details
+      const errorDetails = await response.json(); 
+      console.error('Erro ao realizar login:', errorDetails);
       throw new Error('Erro ao realizar login');
     }
 
@@ -48,3 +47,12 @@ export const loginUser = async (credentials: { usuario: string; senha: string })
     throw error;
   }
 };
+
+export const logoutUser = () => {
+ 
+  document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  
+  
+  window.location.href = '/pages/public/login'; 
+};
+

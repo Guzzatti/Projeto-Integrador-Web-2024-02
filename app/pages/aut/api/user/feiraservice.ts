@@ -10,7 +10,7 @@ export const fetchFeiras = async () => {
     }
 };
 
-export const addFeira = async (feira: { nome: string; local: string; data: Date; descricao: string }) => {
+export const addFeira = async (feira: { nome: string; local: string; descricao: string }) => {
     try {
         const newFeira = await authenticatedFetch('/feiras', {
             method: 'POST',

@@ -4,32 +4,27 @@ import React, { useState } from 'react';
 interface ModalAdicionarFeiraProps {
     isOpen: boolean;
     onClose: () => void;
-    onSubmit: (data: { nome: string; local: string; data: Date; descricao: string }) => void;
+    onSubmit: (data: { nome: string; local: string;  descricao: string }) => void;
 }
 
 const ModalAdicionarFeira: React.FC<ModalAdicionarFeiraProps> = ({ isOpen, onClose, onSubmit }) => {
     const [nome, setNome] = useState('');
     const [local, setLocal] = useState('');
-    const [data, setData] = useState<Date | null>(null); 
     const [descricao, setDescricao] = useState('');
 
     const handleClose = () => {
         
         setNome('');
         setLocal('');
-        setData(null);
         setDescricao('');
         onClose(); 
     };
 
     const handleSubmit = () => {
-        if (!data) {
-            alert('Por favor, selecione uma data válida.');
-            return;
-        }
-        onSubmit({ nome, local, data, descricao });
+        onSubmit({ nome, local, descricao });
         handleClose(); 
     };
+    
 
     if (!isOpen) return null;
 

@@ -1,38 +1,52 @@
-const API_URL = process.env.REACT_APP_API_URL || 'https://localhost:8080/api';
-
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
 
 const getToken = () => {
     const name = 'token=';
-    const decodedCookie = decodeURIComponent(document.cookie); 
+    const decodedCookie = decodeURIComponent(document.cookie);
     const parts = decodedCookie.split(';');
 
-   
     for (let part of parts) {
-        part = part.trim(); 
+        part = part.trim();
         if (part.startsWith(name)) {
             return part.substring(name.length);
         }
     }
-    
-    return null; 
+
+    return null;
 };
 
 export const authenticatedFetch = async (url: string, options: RequestInit = {}) => {
-    const token = getToken();
-    const headers = {
-        ...options.headers,
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`, 
-    };
+    try {
+        const token = getToken();
+        
+        if (!token) {
+            throw new Error("Token não encontrado. Faça login novamente.");
+        }
 
-    const response = await fetch(`${API_URL}${url}`, {
-        ...options,
-        headers,
-    });
+        const headers = {
+            ...options.headers,
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        };
 
-    if (!response.ok) {
-        throw new Error(`Erro na requisição: ${response.statusText}`);
+        const response = await fetch(`${API_URL}${url}`, {
+            ...options,
+            headers,
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
+        }
+
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+            return await response.json();
+        } else {
+            throw new Error("Resposta não é JSON.");
+        }
+    } catch (error) {
+        console.error("Erro ao realizar authenticatedFetch:", error);
+        throw error;
     }
-
-    return response.json();
 };
+

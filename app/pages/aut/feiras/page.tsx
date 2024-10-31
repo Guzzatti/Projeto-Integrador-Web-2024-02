@@ -9,7 +9,6 @@ interface Feira {
     id: number; 
     nome: string;
     local: string;
-    data: Date; 
     descricao: string;
 }
 
@@ -70,7 +69,6 @@ const FeirasPage = () => {
                         <tr className="bg-gray-200">
                             <th className="py-2 px-4 border-b">Nome</th>
                             <th className="py-2 px-4 border-b">Local</th>
-                            <th className="py-2 px-4 border-b">Data</th>
                             <th className="py-2 px-4 border-b">Descrição</th>
                             <th className="py-2 px-4 border-b">Opções</th>
                         </tr>
@@ -81,7 +79,6 @@ const FeirasPage = () => {
                                 <tr key={feira.id} className="text-center">
                                     <td className="py-2 px-4 border-b">{feira.nome}</td>
                                     <td className="py-2 px-4 border-b">{feira.local}</td>
-                                    <td className="py-2 px-4 border-b">{new Date(feira.data).toLocaleDateString()}</td>
                                     <td className="py-2 px-4 border-b">{feira.descricao}</td>
                                     <td className="py-2 px-4 border-b flex justify-center space-x-2">
                                         <button
