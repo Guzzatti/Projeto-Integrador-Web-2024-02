@@ -6,7 +6,6 @@ export default function Header() {
       <nav>
         <ul className="flex space-x-4">
           <li><Link href="/">Home</Link></li>
-          <li><Link href="/pages/public/feiras">Feiras</Link></li>
         </ul>
       </nav>
     </header>

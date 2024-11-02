@@ -1,4 +1,4 @@
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api'; 
 
 const getToken = () => {
     const name = 'token=';
@@ -35,7 +35,16 @@ export const authenticatedFetch = async (url: string, options: RequestInit = {})
         });
 
         if (!response.ok) {
-            throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
+            const responseText = await response.text(); // Captura a resposta como texto
+            let errorData;
+
+            try {
+                errorData = responseText ? JSON.parse(responseText) : {};
+            } catch (error) {
+                errorData = { message: "Erro desconhecido ao processar a resposta" };
+            }
+
+            throw new Error(`Erro na requisição: ${response.status} - ${errorData.message || response.statusText}`);
         }
 
         const contentType = response.headers.get("content-type");

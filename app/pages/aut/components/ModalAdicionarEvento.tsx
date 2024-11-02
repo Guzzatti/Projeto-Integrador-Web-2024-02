@@ -1,49 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { authenticatedFetch } from '../api/user/apiService';
-
-interface Feira {
-    id: number;
-    nome: string;
-}
+import React, { useState } from 'react';
 
 interface ModalAdicionarEventoProps {
     isOpen: boolean;
     onClose: () => void;
-    onSubmit: (data: { data: Date; feiraId: number }) => void;
+    onSubmit: (data: Date) => void;
 }
 
 const ModalAdicionarEvento: React.FC<ModalAdicionarEventoProps> = ({ isOpen, onClose, onSubmit }) => {
     const [data, setData] = useState<Date | null>(null);
-    const [feiraId, setFeiraId] = useState<number | null>(null);
-    const [feiras, setFeiras] = useState<Feira[]>([]);
-
-    useEffect(() => {
-        const fetchFeiras = async () => {
-            try {
-                const feirasData = await authenticatedFetch('/feiras');
-                setFeiras(feirasData.content || []); 
-            } catch (error) {
-                console.error('Erro ao buscar feiras:', error);
-                alert('Não foi possível carregar as feiras.');
-            }
-        };
-
-        fetchFeiras();
-    }, []);
 
     const handleClose = () => {
         setData(null);
-        setFeiraId(null);
         onClose();
     };
 
     const handleSubmit = () => {
-        if (!data || !feiraId) {
-            alert('Por favor, preencha todos os campos obrigatórios.');
+        if (!data) {
+            alert('Por favor, preencha a data do evento.');
             return;
         }
-
-        onSubmit({ data, feiraId });
+        onSubmit(data);
         handleClose();
     };
 
@@ -61,20 +37,6 @@ const ModalAdicionarEvento: React.FC<ModalAdicionarEventoProps> = ({ isOpen, onC
                         className="w-full px-4 py-2 border rounded"
                         onChange={(e) => setData(new Date(e.target.value))}
                     />
-                </div>
-
-                <div className="mb-4">
-                    <label className="block text-gray-700">Feira</label>
-                    <select
-                        className="w-full px-4 py-2 border rounded"
-                        onChange={(e) => setFeiraId(Number(e.target.value))}
-                        value={feiraId ?? ''}
-                    >
-                        <option value="" disabled>Selecione uma feira</option>
-                        {feiras.map((feira) => (
-                            <option key={feira.id} value={feira.id}>{feira.nome}</option>
-                        ))}
-                    </select>
                 </div>
 
                 <div className="flex justify-end space-x-4">

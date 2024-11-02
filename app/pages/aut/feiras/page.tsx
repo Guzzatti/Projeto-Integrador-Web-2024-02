@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { fetchFeiras, addFeira } from '../api/user/feiraservice';
+import { fetchFeiras, addFeira, deleteFeira, updateFeira } from '../api/user/feiraservice';
 import ModalAdicionarFeira from '../components/ModalAdicionarFeira';
 import withAuth from '../../../hoc/withAuth';
 
@@ -15,6 +15,7 @@ interface Feira {
 const FeirasPage = () => {
     const [feirasData, setFeirasData] = useState<Feira[]>([]); 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editingFeira, setEditingFeira] = useState<Feira | null>(null); // Estado para feira em edição
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,18 +29,61 @@ const FeirasPage = () => {
     const handleAddFeira = async (feira: Omit<Feira, 'id'>) => {
         try {
             const newFeira = await addFeira(feira);
-            setFeirasData((prevFeiras) => [...prevFeiras, newFeira]);
+    
+            if (newFeira && newFeira.id && newFeira.nome && newFeira.local && newFeira.descricao) {
+                setFeirasData((prevFeiras) => {
+                    const exists = prevFeiras.some(item => item.id === newFeira.id);
+                    return exists ? prevFeiras : [...prevFeiras, newFeira];
+                });
+            } else {
+                const updatedFeiras = await fetchFeiras();
+                setFeirasData(updatedFeiras);
+            }
         } catch (error) {
             console.error('Erro ao adicionar feira:', error);
         }
     };
 
     const handleEdit = (id: number) => {
-       
+        const feiraToEdit = feirasData.find((feira) => feira.id === id);
+        if (feiraToEdit) {
+            setEditingFeira(feiraToEdit);
+            setIsModalOpen(true);
+        }
     };
 
-    const handleDelete = (id: number) => {
-       
+    const handleModalSubmit = async (data: { nome: string; local: string; descricao: string }) => {
+        if (editingFeira) {
+            // Atualiza a feira existente
+            await updateFeira(editingFeira.id, data);
+            setFeirasData((prevFeiras) =>
+                prevFeiras.map((feira) =>
+                    feira.id === editingFeira.id ? { ...feira, ...data } : feira
+                )
+            );
+        } else {
+            // Adiciona uma nova feira
+            await handleAddFeira(data);
+        }
+        setIsModalOpen(false);
+        setEditingFeira(null); // Reseta a feira em edição
+    };
+
+    const handleDelete = async (id: number) => {
+        const confirmDelete = window.confirm('Tem certeza que deseja excluir esta feira?');
+        if (!confirmDelete) return;
+    
+        try {
+            await deleteFeira(id);
+            setFeirasData((prevFeiras) => prevFeiras.filter((feira) => feira.id !== id));
+        } catch (error) {
+            console.error('Erro ao excluir a feira:', error);
+            if (error instanceof Error && error.message.includes('400 - Erro de integridade')) {
+                alert('Não foi possível deletar a feira pois ela possui eventos ou feirantes relacionados.');
+            } else {
+                alert('Ocorreu um erro ao tentar deletar a feira.');
+            }
+        }
     };
 
     return (
@@ -48,7 +92,10 @@ const FeirasPage = () => {
 
             <div className="mb-4">
                 <button
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={() => {
+                        setEditingFeira(null);
+                        setIsModalOpen(true);
+                    }}
                     className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-auto"
                 >
                     Adicionar Feira
@@ -58,7 +105,8 @@ const FeirasPage = () => {
             <ModalAdicionarFeira
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
-                onSubmit={handleAddFeira}
+                onSubmit={handleModalSubmit}
+                feira={editingFeira ? { nome: editingFeira.nome, local: editingFeira.local, descricao: editingFeira.descricao } : undefined} // Passa os dados corretamente para edição
             />
 
             <section className="mb-8">
@@ -69,38 +117,34 @@ const FeirasPage = () => {
                         <tr className="bg-gray-200">
                             <th className="py-2 px-4 border-b">Nome</th>
                             <th className="py-2 px-4 border-b">Local</th>
-                            <th className="py-2 px-4 border-b">Descrição</th>
                             <th className="py-2 px-4 border-b">Opções</th>
                         </tr>
                     </thead>
                     <tbody>
                         {feirasData.length > 0 ? (
-                            feirasData.map((feira) => (
-                                <tr key={feira.id} className="text-center">
+                            feirasData.map((feira, index) => (
+                                <tr key={`${feira.id}-${index}`} className="text-center">
                                     <td className="py-2 px-4 border-b">{feira.nome}</td>
                                     <td className="py-2 px-4 border-b">{feira.local}</td>
-                                    <td className="py-2 px-4 border-b">{feira.descricao}</td>
-                                    <td className="py-2 px-4 border-b flex justify-center space-x-2">
+                                    <td className="py-2 px-4 border-b">
                                         <button
-                                            className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
                                             onClick={() => handleEdit(feira.id)}
+                                            className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600 mr-2"
                                         >
                                             Editar
                                         </button>
                                         <button
-                                            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
                                             onClick={() => handleDelete(feira.id)}
+                                            className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
                                         >
-                                            Excluir
+                                            Deletar
                                         </button>
                                     </td>
                                 </tr>
                             ))
                         ) : (
                             <tr>
-                                <td colSpan={5} className="py-4 text-center text-gray-500">
-                                    Nenhuma feira encontrada.
-                                </td>
+                                <td colSpan={3} className="py-4 text-center">Nenhuma feira cadastrada.</td>
                             </tr>
                         )}
                     </tbody>

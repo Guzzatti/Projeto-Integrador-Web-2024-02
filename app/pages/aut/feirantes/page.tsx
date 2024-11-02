@@ -11,11 +11,14 @@ interface Feirante {
   nomeEmpresa: string;
   cnpj: string;
   telefone: string; 
+  email: string; 
+  feiraId: number; 
 }
 
 const FeirantesPage = () => {
   const [feirantesData, setFeirantesData] = useState<Feirante[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,31 +37,30 @@ const FeirantesPage = () => {
     try {
       const newFeirante = await addFeirante(feirante);
       setFeirantesData((prevFeirantes) => [...prevFeirantes, newFeirante]);
+      setErrorMessage(''); // Limpa mensagem de erro ao adicionar com sucesso
     } catch (error) {
+      if (error instanceof Error) {
+        setErrorMessage(error.message); // Define a mensagem de erro para exibir
+      } else {
+        setErrorMessage('Erro ao adicionar feirante.'); // Mensagem padrão para erros não esperados
+      }
       console.error('Erro ao adicionar feirante:', error);
     }
   };
 
-  /*
-  const handleDelete = async (id: number) => {
-    try {
-      await deleteFeirante(id);
-      setFeirantesData((prevFeirantes) => prevFeirantes.filter((feirante) => feirante.id !== id));
-    } catch (error) {
-      console.error('Erro ao excluir feirante:', error);
-    }
+  const handleEdit = (id: number) => {
+    // Lógica de edição
   };
 
-  */
-
-/* const handleEdit = (id: number) => {
-    // Lógica para editar o feirante (ex. abrir modal com dados do feirante selecionado)
+  const handleDelete = (id: number) => {
+    // Lógica de exclusão
   };
-*/
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 p-5">
       <h1 className="text-3xl font-bold mb-6">Gerenciar Feirantes</h1>
+  
+      {errorMessage && <p className="text-red-500">{errorMessage}</p>} {/* Exibe a mensagem de erro */}
   
       <div className="mb-4">
         <button
@@ -74,54 +76,45 @@ const FeirantesPage = () => {
         onClose={() => setIsModalOpen(false)}
         onSubmit={handleAddFeirante}
       />
-  
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Lista de Feirantes</h2>
-  
-        <table className="min-w-full bg-white border border-gray-300">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="py-2 px-4 border-b">Nome do Feirante</th>
-              <th className="py-2 px-4 border-b">Nome da Empresa</th>
-              <th className="py-2 px-4 border-b">CNPJ</th>
-              <th className="py-2 px-4 border-b">Telefone</th>
-              <th className="py-2 px-4 border-b">Opções</th>
+      <table className="min-w-full bg-white border border-gray-300">
+        <thead>
+          <tr>
+            <th className="border px-4 py-2">Nome do Feirante</th>
+            <th className="border px-4 py-2">Nome da Empresa</th>
+            <th className="border px-4 py-2">CNPJ</th>
+            <th className="border px-4 py-2">Telefone</th>
+            <th className="border px-4 py-2">Email</th> 
+            <th className="border px-4 py-2">Feira ID</th>
+            <th className="py-2 px-4 border-b">Opções</th>
+          </tr>
+        </thead>
+        <tbody>
+          {feirantesData.map((feirante, index) => (
+            <tr key={`${feirante.id}-${index}`}>
+              <td className="border px-4 py-2">{feirante.nomeFeirante}</td>
+              <td className="border px-4 py-2">{feirante.nomeEmpresa}</td>
+              <td className="border px-4 py-2">{feirante.cnpj}</td>
+              <td className="border px-4 py-2">{feirante.telefone}</td>
+              <td className="border px-4 py-2">{feirante.email}</td> 
+              <td className="border px-4 py-2">{feirante.feiraId}</td>
+              <td className="py-2 px-4 border-b flex justify-center space-x-2">
+                <button
+                  className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+                  onClick={() => handleEdit(feirante.id)}
+                >
+                  Editar
+                </button>
+                <button
+                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                  onClick={() => handleDelete(feirante.id)}
+                >
+                  Excluir
+                </button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {feirantesData.length > 0 ? (
-              feirantesData.map((feirante) => (
-                <tr key={feirante.id} className="text-center">
-                  <td className="py-2 px-4 border-b">{feirante.nomeFeirante}</td>
-                  <td className="py-2 px-4 border-b">{feirante.nomeEmpresa}</td>
-                  <td className="py-2 px-4 border-b">{feirante.cnpj}</td>
-                  <td className="py-2 px-4 border-b">{feirante.telefone}</td>
-                  <td className="py-2 px-4 border-b flex justify-center space-x-2">
-                    <button
-                      className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
-                      //onClick={() => handleEdit(feirante.id)}
-                    >
-                      Editar
-                    </button>
-                    <button
-                      className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                      //onClick={() => handleDelete(feirante.id)}
-                    >
-                      Excluir
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={5} className="py-4 text-center text-gray-500">
-                  Nenhum feirante encontrado.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </section>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
