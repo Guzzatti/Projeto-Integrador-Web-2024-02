@@ -66,7 +66,7 @@ export default function Home() {
             <div className="flex flex-col min-h-screen">
                 <div className="container mx-auto px-4 py-8">
                     <header className="text-center mb-8">
-                        <h1 className="text-4xl font-bold text-blue-600">Hub das feiras de Criciúma</h1>
+                        <h1 className="text-4xl font-bold text-gray-600">Hub das feiras de Criciúma</h1>
                         <p className="mt-4 text-gray-600">Conecte-se com produtores locais e descubra feiras próximas de você!</p>
                     </header>
 
@@ -122,7 +122,7 @@ export default function Home() {
                     <section className="text-center mt-8">
                         <h2 className="text-2xl font-semibold mb-4">Acesse sua conta</h2>
                         <div className="space-y-4">
-                            <Link href="/pages/public/login" className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                            <Link href="/pages/public/login" className="inline-block px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 hover:text-gray-100">
                                 Login
                             </Link>
                         </div>

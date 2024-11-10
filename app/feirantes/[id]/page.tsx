@@ -24,11 +24,11 @@ type Feira = {
 };
 
 async function getFeiranteById(id: string): Promise<Feirante | undefined> {
-  return feirantes.find((feirante) => feirante.id === id);
+  return feirantes.find((feirante: { id: string; }) => feirante.id === id);
 }
 
 async function getFeiraById(id: string): Promise<Feira | undefined> {
-  return feiras.find((feira) => feira.id === id);
+  return feiras.find((feira: { id: string; }) => feira.id === id);
 }
 
 export default async function FeirantePage({ params }: { params: { id: string } }) {
@@ -38,7 +38,6 @@ export default async function FeirantePage({ params }: { params: { id: string } 
   const feirasParticipantes = await Promise.all(
     feirante.feiras.map((feiraId) => getFeiraById(feiraId))
   );
-
   return (
     <div className="container mx-auto px-4 py-8">
       <header className="text-center mb-8">

@@ -29,7 +29,7 @@ export default function Login() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md border border-gray-200">
-        <h1 className="text-3xl font-bold mb-4 text-center text-blue-600">Login</h1>
+        <h1 className="text-3xl font-bold mb-4 text-center text-black-600">Login</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="user" className="block text-gray-700">Usuário</label>
@@ -56,7 +56,7 @@ export default function Login() {
           {error && <p className="text-red-600 mb-4">{error}</p>}
           <button
             type="submit"
-            className={`w-full px-4 py-2 rounded text-white ${loading ? 'bg-gray-500' : 'bg-blue-600'} hover:bg-blue-700`}
+            className={`w-full px-4 py-2 rounded text-white ${loading ? 'bg-gray-500' : 'bg-gray-600'} hover:bg-gray-700`}
             disabled={loading}
           >
             {loading ? 'Entrando...' : 'Login'}
