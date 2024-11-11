@@ -26,6 +26,7 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({ banners }) => {
     >
       {banners.map((banner) => (
         <SwiperSlide key={banner.id}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={banner.imageUrl}
             alt={banner.altText}

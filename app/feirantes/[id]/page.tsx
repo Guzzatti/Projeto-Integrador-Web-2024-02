@@ -33,7 +33,7 @@ const getFeiraById = (id: string): Feira | undefined => {
 };
 
 // Componente da página
-export default async function FeirantePage({ params }: { params: { id: string } }) {
+export default async function FeirantePage({ params }: any) {
   const feirante = getFeiranteById(params.id);
   
   if (!feirante) {

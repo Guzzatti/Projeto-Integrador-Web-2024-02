@@ -113,7 +113,7 @@ export default function Home() {
                                 <div key={review.id} className="text-center p-4">
                                     <h3 className="text-lg font-semibold text-gray-800">{review.name}</h3>
                                     <p className="text-yellow-500">{"⭐".repeat(review.rating)}</p>
-                                    <p className="text-gray-700 italic">"{review.comment}"</p>
+                                    <p className="text-gray-700 italic">{review.comment}</p>
                                 </div>
                             ))}
                         </Slider>
