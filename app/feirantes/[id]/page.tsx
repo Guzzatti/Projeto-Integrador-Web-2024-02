@@ -1,7 +1,6 @@
-import { feirantes } from '../../data/feirantes';
-import { feiras } from '../../data/feiras';
+import { feirantes } from '../data/feirantes'; // Ajuste conforme necessário
+import { feiras } from '../data/feiras'; // Ajuste conforme necessário
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 
 type Produto = {
   id: string;
@@ -23,21 +22,28 @@ type Feira = {
   nome: string;
 };
 
-async function getFeiranteById(id: string): Promise<Feirante | undefined> {
-  return feirantes.find((feirante: { id: string; }) => feirante.id === id);
-}
+// Função para buscar um feirante pelo ID
+const getFeiranteById = (id: string): Feirante | undefined => {
+  return feirantes.find((feirante) => feirante.id === id);
+};
 
-async function getFeiraById(id: string): Promise<Feira | undefined> {
-  return feiras.find((feira: { id: string; }) => feira.id === id);
-}
+// Função para buscar uma feira pelo ID
+const getFeiraById = (id: string): Feira | undefined => {
+  return feiras.find((feira) => feira.id === id);
+};
 
+// Componente da página
 export default async function FeirantePage({ params }: { params: { id: string } }) {
-  const feirante = await getFeiranteById(params.id);
-  if (!feirante) return <div>Feirante não encontrado.</div>;
+  const feirante = getFeiranteById(params.id);
+  
+  if (!feirante) {
+    return <div>Feirante não encontrado.</div>;
+  }
 
   const feirasParticipantes = await Promise.all(
     feirante.feiras.map((feiraId) => getFeiraById(feiraId))
   );
+
   return (
     <div className="container mx-auto px-4 py-8">
       <header className="text-center mb-8">
