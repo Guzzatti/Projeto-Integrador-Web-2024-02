@@ -1,4 +1,4 @@
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api'; 
+const API_URL = process.env.NEXT_PUBLIC_SWAGGER_URL || 'http://feira.mateuslh.com/api'; 
 
 const getToken = () => {
     const name = 'token=';
